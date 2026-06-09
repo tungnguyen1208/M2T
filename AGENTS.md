@@ -2,7 +2,7 @@
 
 ## Mục Tiêu Dự Án
 
-Dự án là website quản lý bán hàng và giới thiệu sản phẩm cho cửa hàng máy tính. Stack chính: ASP.NET Core Web API cho backend, Angular cho frontend, SQL Server cho database. Giao diện cần tối giản, hiện đại, chuyên nghiệp, lấy cảm hứng từ ảnh `ChatGPT Image 22_30_52 9 thg 6, 2026.png`: sidebar/nav xanh navy, nền sáng, card trắng, viền mảnh, icon rõ ràng và CTA xanh dương.
+Dự án là website quản lý bán hàng và giới thiệu sản phẩm cho cửa hàng máy tính. Stack chính: ASP.NET Core Web API cho backend, Angular + TypeScript + Tailwind CSS cho frontend, SQL Server cho database. Giao diện cần tối giản, hiện đại, chuyên nghiệp, lấy cảm hứng từ ảnh `ChatGPT Image 22_30_52 9 thg 6, 2026.png`: sidebar/nav xanh navy, nền sáng, card trắng, viền mảnh, icon rõ ràng và CTA xanh dương.
 
 ## Cấu Trúc Dự Án
 
@@ -14,7 +14,7 @@ Dự án là website quản lý bán hàng và giới thiệu sản phẩm cho c
 - `backend/DTOs/`: request/response DTO, không expose entity trực tiếp nếu có thể tránh.
 - `backend/Data/`: `DbContext`, migrations, seed data.
 - `backend/Services/`: business logic.
-- `frontend/`: Angular application.
+- `frontend/`: Angular + TypeScript + Tailwind CSS application.
 - `frontend/src/app/features/`: module/page theo nghiệp vụ như products, orders, inventory, dashboard.
 - `frontend/src/app/shared/`: component dùng chung, pipe, directive, guard.
 - `frontend/src/assets/`: ảnh sản phẩm, logo, icon.
@@ -28,9 +28,9 @@ SQL Server truy cập qua Entity Framework Core. Tạo migration khi đổi sche
 
 ## Frontend Guidelines
 
-Angular code dùng component tách nhỏ: `ProductCardComponent`, `CategoryFilterComponent`, `StatusBadgeComponent`, `DashboardMetricCardComponent`. Service gọi API đặt trong từng feature hoặc `core/api`. Dùng TypeScript interface cho DTO nhận từ backend.
+Angular code dùng TypeScript strict mode, Tailwind CSS utility classes, và component tách nhỏ: `ProductCardComponent`, `CategoryFilterComponent`, `StatusBadgeComponent`, `DashboardMetricCardComponent`. Service gọi API đặt trong từng feature hoặc `core/api`. Dùng TypeScript interface cho DTO nhận từ backend.
 
-UI phải giống dashboard/catalog: layout rõ, card bo góc tối đa `8px`, border `#e5eaf3`, shadow nhẹ, màu chính navy và blue. Màn hình đầu tiên nên hiển thị dashboard hoặc catalog sản phẩm hữu ích, không dùng landing page marketing quá lớn.
+UI phải giống dashboard/catalog: layout rõ, card bo góc tối đa `8px`, border `#e5eaf3`, shadow nhẹ, màu chính navy và blue. Ưu tiên Tailwind classes và shared CSS variables cho token màu/kích thước; chỉ viết CSS custom khi Tailwind không đủ rõ. Màn hình đầu tiên nên hiển thị dashboard hoặc catalog sản phẩm hữu ích, không dùng landing page marketing quá lớn.
 
 ## Lệnh Phát Triển
 

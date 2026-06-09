@@ -1,0 +1,99 @@
+@if (isLogin()) {
+  <router-outlet />
+} @else {
+  <div class="min-h-screen bg-[#f5f8fd] text-[#071a3f] lg:grid lg:grid-cols-[222px_minmax(0,1fr)]">
+    <aside
+      class="fixed inset-y-0 left-0 z-30 flex w-[222px] -translate-x-full flex-col gap-4 overflow-y-auto bg-gradient-to-b from-[#06275d] to-[#031b45] px-3 py-5 text-white transition-transform duration-300 lg:sticky lg:top-0 lg:h-screen lg:translate-x-0"
+      [class.translate-x-0]="navOpen()"
+    >
+      <a routerLink="/dashboard" class="flex items-center gap-3 border-b border-white/10 px-4 pb-5">
+        <span class="grid h-11 w-11 place-items-center rounded-lg bg-[#126bff] shadow-lg">
+          <svg lucideShoppingBag class="h-6 w-6" aria-hidden="true" />
+        </span>
+        <span>
+          <strong class="block text-xl leading-none">POS365</strong>
+          <span class="mt-1 block text-sm text-white/75">Quản lý bán hàng</span>
+        </span>
+      </a>
+
+      <nav class="grid gap-2">
+        @for (item of navItems; track item.label) {
+          <a
+            [routerLink]="item.path"
+            routerLinkActive="bg-[#126bff] text-white"
+            class="flex min-h-11 items-center gap-3 rounded-lg px-4 font-semibold text-white/85 transition hover:bg-[#126bff] hover:text-white"
+          >
+            <span class="grid h-6 w-6 place-items-center text-white/85">
+              @switch (item.icon) {
+                @case ('dashboard') { <svg lucideHome class="h-5 w-5" aria-hidden="true" /> }
+                @case ('cart') { <svg lucideShoppingCart class="h-5 w-5" aria-hidden="true" /> }
+                @case ('receipt') { <svg lucideClipboardList class="h-5 w-5" aria-hidden="true" /> }
+                @case ('box') { <svg lucideBox class="h-5 w-5" aria-hidden="true" /> }
+                @case ('users') { <svg lucideUsers class="h-5 w-5" aria-hidden="true" /> }
+                @case ('truck') { <svg lucideTruck class="h-5 w-5" aria-hidden="true" /> }
+                @case ('warehouse') { <svg lucideWarehouse class="h-5 w-5" aria-hidden="true" /> }
+                @case ('cash') { <svg lucideCircleDollarSign class="h-5 w-5" aria-hidden="true" /> }
+                @case ('chart') { <svg lucideBarChart3 class="h-5 w-5" aria-hidden="true" /> }
+                @case ('percent') { <svg lucideBadgePercent class="h-5 w-5" aria-hidden="true" /> }
+                @case ('staff') { <svg lucideUser class="h-5 w-5" aria-hidden="true" /> }
+                @case ('settings') { <svg lucideSettings class="h-5 w-5" aria-hidden="true" /> }
+              }
+            </span>
+            {{ item.label }}
+          </a>
+        }
+      </nav>
+
+      <div class="mt-auto flex items-center gap-3 rounded-lg border border-white/10 bg-white/10 p-4">
+        <span class="grid h-10 w-10 place-items-center rounded-lg bg-white/10">
+          <svg lucideHeadphones class="h-5 w-5" aria-hidden="true" />
+        </span>
+        <div>
+          <small class="block text-white/70">Hỗ trợ</small>
+          <strong>1900 1234</strong>
+        </div>
+      </div>
+    </aside>
+
+    @if (navOpen()) {
+      <button class="fixed inset-0 z-20 bg-slate-950/40 lg:hidden" type="button" aria-label="Đóng menu" (click)="navOpen.set(false)"></button>
+    }
+
+    <main class="min-w-0">
+      <header class="sticky top-0 z-10 flex min-h-[72px] items-center justify-between border-b border-[#e2e9f4] bg-white/95 px-4 backdrop-blur lg:px-7">
+        <div class="flex min-w-0 items-center gap-4">
+          <button class="grid h-10 w-10 shrink-0 place-items-center rounded-lg border border-[#e2e9f4] bg-white text-[#06275d] shadow-sm" type="button" (click)="navOpen.set(true)" aria-label="Mở menu">
+            <svg lucideMenu class="h-5 w-5" aria-hidden="true" />
+          </button>
+          <h1 class="truncate text-xl font-extrabold tracking-normal sm:text-2xl lg:text-3xl">{{ pageTitle() }}</h1>
+        </div>
+
+        <div class="flex items-center gap-2 sm:gap-3">
+          <button class="relative grid h-10 w-10 place-items-center rounded-lg border border-[#e2e9f4] bg-white text-[#06275d] shadow-sm" aria-label="Thông báo">
+            <svg lucideBell class="h-5 w-5" aria-hidden="true" />
+            <span class="absolute -right-1 -top-1 grid h-5 w-5 place-items-center rounded-full border-2 border-white bg-rose-500 text-[10px] font-bold text-white">3</span>
+          </button>
+          <button class="hidden h-10 w-10 place-items-center rounded-lg border border-[#e2e9f4] bg-white text-[#06275d] shadow-sm sm:grid" aria-label="Trợ giúp">
+            <svg lucideHelpCircle class="h-5 w-5" aria-hidden="true" />
+          </button>
+          <div class="flex items-center gap-2">
+            <span class="grid h-10 w-10 place-items-center rounded-full bg-[#126bff] text-white shadow-sm">
+              <svg lucideUser class="h-5 w-5" aria-hidden="true" />
+            </span>
+            <span class="hidden leading-tight sm:block">
+              <strong class="block">Admin</strong>
+              <small class="text-slate-500">Quản trị viên</small>
+            </span>
+            <button type="button" class="hidden h-8 w-8 place-items-center rounded-md text-slate-500 hover:bg-slate-100 sm:grid" (click)="logout()" aria-label="Đăng xuất">
+              <svg lucideLogOut class="h-4 w-4" aria-hidden="true" />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <section class="mx-auto grid w-full max-w-[1440px] gap-3 px-4 py-5 lg:px-7">
+        <router-outlet />
+      </section>
+    </main>
+  </div>
+}

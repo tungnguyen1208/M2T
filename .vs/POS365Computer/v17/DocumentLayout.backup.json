@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "H:\\Angular\\M2T\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F1CA028D-CD95-4F73-BED6-CEF22364009C}|backend\\POS365Computer.Api.csproj|h:\\angular\\m2t\\backend\\pos365computer.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{F1CA028D-CD95-4F73-BED6-CEF22364009C}|backend\\POS365Computer.Api.csproj|solutionrelative:backend\\pos365computer.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "POS365Computer.Api",
+              "DocumentMoniker": "H:\\Angular\\M2T\\backend\\POS365Computer.Api.csproj",
+              "RelativeDocumentMoniker": "backend\\POS365Computer.Api.csproj",
+              "ToolTip": "H:\\Angular\\M2T\\backend\\POS365Computer.Api.csproj",
+              "RelativeToolTip": "backend\\POS365Computer.Api.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-06-09T16:54:23.861Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
