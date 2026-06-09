@@ -42,7 +42,9 @@ public sealed class DashboardService(AppDbContext db)
             ["Laptop"] = 60,
             ["Linh kiện máy tính"] = 75,
             ["Phụ kiện"] = 52,
-            ["Thiết bị văn phòng"] = 35
+            ["Thiết bị văn phòng"] = 35,
+            ["Thiết bị mạng"] = 40,
+            ["PC"] = 58
         };
 
         return categories.Select(x =>

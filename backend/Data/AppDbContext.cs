@@ -88,7 +88,9 @@ public sealed class AppDbContext(DbContextOptions<AppDbContext> options) : DbCon
             new Category { Id = 1, Name = "Laptop", Icon = "laptop" },
             new Category { Id = 2, Name = "Linh kiện máy tính", Icon = "cpu" },
             new Category { Id = 3, Name = "Phụ kiện", Icon = "mouse" },
-            new Category { Id = 4, Name = "Thiết bị văn phòng", Icon = "printer" });
+            new Category { Id = 4, Name = "Thiết bị văn phòng", Icon = "printer" },
+            new Category { Id = 5, Name = "Thiết bị mạng", Icon = "router" },
+            new Category { Id = 6, Name = "PC", Icon = "hdd" });
 
         modelBuilder.Entity<Product>().HasData(
             new Product { Id = 1, CategoryId = 1, Name = "Laptop Dell Inspiron 15 3520", Sku = "LAP-DELL-3520", Description = "Laptop văn phòng hiệu năng ổn định", Price = 22500000m, CostPrice = 18000000m, StockQuantity = 36, ImageUrl = "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=760&q=80", Status = ProductStatus.Active },
@@ -96,7 +98,7 @@ public sealed class AppDbContext(DbContextOptions<AppDbContext> options) : DbCon
             new Product { Id = 3, CategoryId = 3, Name = "Chuột không dây Logitech M331", Sku = "ACC-LOGI-M331", Description = "Chuột yên tĩnh cho văn phòng", Price = 350000m, CostPrice = 220000m, StockQuantity = 95, ImageUrl = "https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=760&q=80", Status = ProductStatus.Active },
             new Product { Id = 4, CategoryId = 3, Name = "Bàn phím cơ DareU EK87", Sku = "ACC-DAREU-EK87", Description = "Bàn phím cơ layout gọn", Price = 950000m, CostPrice = 690000m, StockQuantity = 64, ImageUrl = "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=760&q=80", Status = ProductStatus.Active },
             new Product { Id = 5, CategoryId = 4, Name = "Màn hình LG 24MP400-B 24 inch", Sku = "MON-LG-24MP400", Description = "Màn hình IPS 24 inch cho văn phòng", Price = 2390000m, CostPrice = 1800000m, StockQuantity = 53, ImageUrl = "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=760&q=80", Status = ProductStatus.Active },
-            new Product { Id = 6, CategoryId = 2, Name = "PC Gaming M2T RTX 4060", Sku = "PC-M2T-4060", Description = "Bộ máy chơi game, thiết kế đồ họa", Price = 25880000m, CostPrice = 21700000m, StockQuantity = 30, ImageUrl = "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=760&q=80", Status = ProductStatus.Active });
+            new Product { Id = 6, CategoryId = 6, Name = "PC Gaming M2T RTX 4060", Sku = "PC-M2T-4060", Description = "Bộ máy chơi game, thiết kế đồ họa", Price = 25880000m, CostPrice = 21700000m, StockQuantity = 30, ImageUrl = "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=760&q=80", Status = ProductStatus.Active });
 
         modelBuilder.Entity<Customer>().HasData(
             new Customer { Id = 1, Name = "Nguyễn Văn A", Phone = "0901000001", Email = "a@example.com", Address = "Hà Nội", CreatedAt = day.AddHours(8) },
@@ -122,7 +124,7 @@ public sealed class AppDbContext(DbContextOptions<AppDbContext> options) : DbCon
 
         modelBuilder.Entity<InventoryTransaction>().HasData(
             new InventoryTransaction { Id = 1, ProductId = 1, Type = InventoryTransactionType.StockIn, Quantity = 120, Note = "Seed laptop stock", CreatedAt = day },
-            new InventoryTransaction { Id = 2, ProductId = 6, Type = InventoryTransactionType.StockIn, Quantity = 320, Note = "Seed component stock", CreatedAt = day },
+            new InventoryTransaction { Id = 2, ProductId = 6, Type = InventoryTransactionType.StockIn, Quantity = 320, Note = "Seed PC stock", CreatedAt = day },
             new InventoryTransaction { Id = 3, ProductId = 3, Type = InventoryTransactionType.StockIn, Quantity = 260, Note = "Seed accessory stock", CreatedAt = day },
             new InventoryTransaction { Id = 4, ProductId = 5, Type = InventoryTransactionType.StockIn, Quantity = 150, Note = "Seed office device stock", CreatedAt = day });
     }
