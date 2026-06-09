@@ -1,0 +1,6 @@
+interface:
+  display_name: "Angular + .NET Full-stack CRUD"
+  short_description: "Coordinate synchronized CRUD across Angular, ASP.NET Core, EF Core, and tests."
+  default_prompt: "Use $angular-dotnet-fullstack-crud to implement the requested CRUD feature across both the Angular frontend and ASP.NET Core backend."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,6 @@
+interface:
+  display_name: "ASP.NET Core CRUD API"
+  short_description: "Build an EF Core CRUD API with DTOs, validation, tests, and Swagger."
+  default_prompt: "Use $dotnet-crud-api to implement the requested CRUD resource in this ASP.NET Core backend and return an Angular-ready API contract."
+policy:
+  allow_implicit_invocation: true

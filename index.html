@@ -1,0 +1,1403 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>M2T Computer - Quản lý bán hàng máy tính</title>
+  <meta name="description" content="Website quản lý bán hàng và giới thiệu sản phẩm máy tính, laptop, linh kiện, phụ kiện cho M2T Computer.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+  <style>
+    :root {
+      --bg: #f5f8fd;
+      --surface: #ffffff;
+      --surface-soft: #f8fbff;
+      --navy: #06275d;
+      --navy-2: #031b45;
+      --blue: #126bff;
+      --blue-2: #eaf2ff;
+      --text: #071a3f;
+      --muted: #667492;
+      --line: #e2e9f4;
+      --green: #16b66a;
+      --orange: #ff9f2f;
+      --red: #ff5273;
+      --purple: #865df4;
+      --cyan: #2eb9c7;
+      --radius: 8px;
+      --shadow: 0 12px 34px rgba(24, 45, 89, .08);
+      --ease: cubic-bezier(.22, 1, .36, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    .app-shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 222px minmax(0, 1fr);
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      padding: 22px 12px;
+      background: linear-gradient(180deg, var(--navy) 0%, var(--navy-2) 100%);
+      color: #fff;
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 16px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, .12);
+    }
+
+    .brand-mark,
+    .icon-box {
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius);
+    }
+
+    .brand-mark {
+      background: linear-gradient(145deg, #1f86ff, #0755e8);
+      box-shadow: 0 12px 24px rgba(18, 107, 255, .32);
+    }
+
+    .brand strong {
+      display: block;
+      font-size: 19px;
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    .brand span span {
+      display: block;
+      margin-top: 4px;
+      color: rgba(255, 255, 255, .72);
+      font-size: 13px;
+    }
+
+    .nav-list {
+      display: grid;
+      gap: 8px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      min-height: 46px;
+      padding: 0 14px;
+      border-radius: var(--radius);
+      color: rgba(255, 255, 255, .82);
+      font-weight: 600;
+      transition: background .22s var(--ease), color .22s var(--ease), transform .22s var(--ease);
+    }
+
+    .nav-link:hover,
+    .nav-link.is-active {
+      background: var(--blue);
+      color: #fff;
+      transform: translateX(2px);
+    }
+
+    .support-card {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .1);
+    }
+
+    .support-card small {
+      display: block;
+      color: rgba(255, 255, 255, .7);
+      font-weight: 600;
+    }
+
+    .main {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      min-height: 72px;
+      padding: 0 28px;
+      background: rgba(255, 255, 255, .88);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(16px);
+    }
+
+    .page-title {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-width: 0;
+    }
+
+    .menu-button,
+    .icon-button {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .menu-button {
+      display: grid;
+    }
+
+    .page-title h1 {
+      margin: 0;
+      font-size: clamp(22px, 2vw, 28px);
+      letter-spacing: 0;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .notification {
+      position: relative;
+    }
+
+    .notification::after {
+      content: "3";
+      position: absolute;
+      right: -3px;
+      top: -5px;
+      display: grid;
+      place-items: center;
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      background: #ff3f55;
+      color: #fff;
+      border: 2px solid #fff;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .search {
+      position: relative;
+      width: min(320px, 30vw);
+    }
+
+    .search svg {
+      position: absolute;
+      left: 13px;
+      top: 50%;
+      color: var(--muted);
+      transform: translateY(-50%);
+    }
+
+    .search input {
+      width: 100%;
+      height: 42px;
+      padding: 0 14px 0 42px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      color: var(--text);
+      outline: 0;
+    }
+
+    .user-chip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      font-weight: 700;
+    }
+
+    .user-chip small {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .user-chip .avatar {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .content {
+      display: grid;
+      gap: 12px;
+      width: min(100%, 1440px);
+      padding: 8px 28px 34px;
+      margin: 0 auto;
+    }
+
+    #overview,
+    #products,
+    #orders,
+    #inventory,
+    #actions,
+    #contact {
+      scroll-margin-top: 88px;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 14px;
+    }
+
+    .date-pill,
+    .select-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 42px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      color: #23355f;
+      font-weight: 600;
+      box-shadow: 0 8px 18px rgba(24, 45, 89, .04);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .stat-card,
+    .panel,
+    .product-card,
+    .quick-action {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .stat-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-height: 104px;
+      padding: 16px;
+    }
+
+    .stat-card:nth-child(1) .icon-box { background: #e8f1ff; color: var(--blue); }
+    .stat-card:nth-child(2) .icon-box { background: #e7f9ef; color: var(--green); }
+    .stat-card:nth-child(3) .icon-box { background: #fff3df; color: var(--orange); }
+    .stat-card:nth-child(4) .icon-box { background: #efeaff; color: var(--purple); }
+    .stat-card:nth-child(5) .icon-box { background: #ffeaf0; color: var(--red); }
+
+    .stat-label {
+      margin: 0 0 4px;
+      color: var(--muted);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .stat-value {
+      margin: 0;
+      color: var(--text);
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .trend {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 8px;
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(340px, .9fr);
+      gap: 12px;
+    }
+
+    .panel {
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 58px;
+      padding: 0 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .panel-head h2 {
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+
+    .panel-link {
+      color: var(--blue);
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .chart {
+      position: relative;
+      height: 252px;
+      padding: 20px 20px 24px 52px;
+      background:
+        linear-gradient(to bottom, transparent 0, transparent 19%, #e8edf6 20%, transparent 20%, transparent 39%, #e8edf6 40%, transparent 40%, transparent 59%, #e8edf6 60%, transparent 60%, transparent 79%, #e8edf6 80%, transparent 80%),
+        linear-gradient(180deg, #fff 0%, #f7fbff 100%);
+    }
+
+    .chart svg {
+      position: absolute;
+      inset: 18px 20px 26px 52px;
+      width: calc(100% - 72px);
+      height: calc(100% - 44px);
+      overflow: visible;
+    }
+
+    .axis {
+      position: absolute;
+      color: #7890b6;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .axis-y-1 { top: 28px; left: 18px; }
+    .axis-y-2 { top: 66px; left: 18px; }
+    .axis-y-3 { top: 104px; left: 18px; }
+    .axis-y-4 { top: 142px; left: 18px; }
+    .axis-y-5 { top: 180px; left: 18px; }
+    .axis-y-6 { top: 218px; left: 18px; }
+    .axis-x {
+      left: 52px;
+      right: 20px;
+      bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .chart-tip {
+      position: absolute;
+      left: 48%;
+      top: 36%;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .94);
+      box-shadow: var(--shadow);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .chart-tip span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .best-list,
+    .inventory-list {
+      display: grid;
+      gap: 0;
+      padding: 8px 18px 14px;
+      margin: 0;
+      list-style: none;
+    }
+
+    .best-item {
+      display: grid;
+      grid-template-columns: 24px 48px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 12px;
+      min-height: 54px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .best-item:last-child {
+      border-bottom: 0;
+    }
+
+    .rank {
+      display: grid;
+      place-items: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: var(--blue-2);
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .best-item:nth-child(1) .rank { background: #fff1d7; color: #d98205; }
+    .best-item:nth-child(2) .rank { background: #edf3ff; color: #496b9d; }
+    .best-item:nth-child(3) .rank { background: #ffeceb; color: #df675c; }
+
+    .thumb {
+      width: 48px;
+      height: 42px;
+      border-radius: 7px;
+      object-fit: cover;
+      border: 1px solid var(--line);
+      background: var(--surface-soft);
+    }
+
+    .best-name,
+    .product-card h3,
+    .order-code {
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .best-meta,
+    .product-meta,
+    .inventory-meta {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .inventory-item .best-name {
+      font-size: 15px;
+      line-height: 1.15;
+    }
+
+    .inventory-item .inventory-meta {
+      font-size: 11px;
+      line-height: 1.2;
+    }
+
+    .price {
+      color: var(--blue);
+      font-size: 14px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 4px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0;
+    }
+
+    .section-title p {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .category-tabs {
+      display: flex;
+      gap: 9px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+
+    .tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex: 0 0 auto;
+      min-height: 40px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      color: var(--muted);
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .tab.is-active {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #fff;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .product-card {
+      min-width: 0;
+      overflow: hidden;
+      transition: transform .24s var(--ease), box-shadow .24s var(--ease);
+    }
+
+    .product-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 42px rgba(24, 45, 89, .13);
+    }
+
+    .product-image {
+      position: relative;
+      aspect-ratio: 1.45;
+      overflow: hidden;
+      background: linear-gradient(135deg, #eef5ff, #f8fbff);
+    }
+
+    .product-image img {
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .badge {
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      padding: 6px 9px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, .92);
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 800;
+      box-shadow: 0 8px 18px rgba(24, 45, 89, .1);
+    }
+
+    .product-body {
+      display: grid;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .product-body h3 {
+      min-height: 44px;
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.35;
+    }
+
+    .specs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .specs span {
+      padding: 5px 8px;
+      border-radius: 6px;
+      background: var(--surface-soft);
+      color: #405273;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .product-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .buy-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 36px;
+      padding: 0 11px;
+      border: 0;
+      border-radius: var(--radius);
+      background: var(--blue);
+      color: #fff;
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(330px, .85fr);
+      gap: 12px;
+    }
+
+    .orders-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 650px;
+    }
+
+    .orders-wrap {
+      overflow-x: auto;
+    }
+
+    .orders-table th,
+    .orders-table td {
+      padding: 6px 18px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .orders-table th {
+      color: #496080;
+      background: var(--surface-soft);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 0 9px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .status.paid { background: #e6f8ef; color: #0d9657; }
+    .status.processing { background: #eaf2ff; color: #126bff; }
+    .status.pending { background: #fff4df; color: #d58208; }
+    .status.cancelled { background: #ffecef; color: #e04461; }
+
+    .inventory-item {
+      display: grid;
+      grid-template-columns: 38px minmax(0, 1fr) 44px;
+      align-items: center;
+      gap: 12px;
+      padding: 5px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .inventory-item:last-child {
+      border-bottom: 0;
+    }
+
+    .inventory-icon {
+      display: grid;
+      place-items: center;
+      height: 36px;
+      width: 36px;
+      border-radius: var(--radius);
+      background: #fff3df;
+      color: #d7923a;
+    }
+
+    .bar {
+      height: 5px;
+      margin-top: 4px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #dfe8f8;
+    }
+
+    .bar span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--blue);
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .quick-action {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-height: 68px;
+      padding: 12px 18px;
+      color: #fff;
+      border: 0;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .quick-action:nth-child(1) { background: linear-gradient(135deg, #126bff, #0755e8); }
+    .quick-action:nth-child(2) { background: linear-gradient(135deg, #20c56f, #12a35a); }
+    .quick-action:nth-child(3) { background: linear-gradient(135deg, #8b62f6, #7648e8); }
+    .quick-action:nth-child(4) { background: linear-gradient(135deg, #ffae35, #ff8f1e); }
+    .quick-action:nth-child(5) { background: linear-gradient(135deg, #35c2cf, #1ea6b6); }
+
+    .quick-action .icon-box {
+      background: rgba(255, 255, 255, .22);
+    }
+
+    .quick-action strong,
+    .quick-action span {
+      display: block;
+    }
+
+    .quick-action span {
+      margin-top: 3px;
+      color: rgba(255, 255, 255, .82);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .quick-action > .icon-box {
+      display: grid;
+      place-items: center;
+      width: 56px;
+      height: 56px;
+      margin-top: 0;
+      color: #fff;
+      background: rgba(255, 255, 255, .22);
+    }
+
+    .quick-action > .icon-box svg {
+      display: block;
+      width: 25px;
+      height: 25px;
+      margin: 0;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .65s var(--ease), transform .65s var(--ease);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (max-width: 1180px) {
+      .stats-grid,
+      .quick-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .dashboard-grid,
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .app-shell {
+        display: block;
+      }
+
+      .sidebar {
+        position: fixed;
+        inset: 0 auto 0 0;
+        z-index: 30;
+        width: min(82vw, 300px);
+        transform: translateX(-105%);
+        transition: transform .25s var(--ease);
+      }
+
+      body.nav-open .sidebar {
+        transform: none;
+      }
+
+      body.nav-open::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        background: rgba(3, 18, 45, .42);
+      }
+
+      .menu-button {
+        display: grid;
+      }
+
+      .topbar {
+        padding: 0 16px;
+      }
+
+      .search,
+      .user-chip strong,
+      .top-actions .icon-button {
+        display: none;
+      }
+
+      .content {
+        padding: 16px;
+      }
+
+      .toolbar {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .toolbar > div {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .stats-grid,
+      .quick-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 620px) {
+      body {
+        font-size: 14px;
+      }
+
+      .topbar {
+        min-height: 66px;
+      }
+
+      .page-title h1 {
+        font-size: 20px;
+      }
+
+      .content {
+        gap: 14px;
+        padding: 14px 12px 24px;
+      }
+
+      .stats-grid,
+      .products-grid,
+      .quick-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stat-card {
+        min-height: 96px;
+      }
+
+      .chart {
+        height: 230px;
+        padding-left: 42px;
+      }
+
+      .chart svg {
+        left: 42px;
+        width: calc(100% - 62px);
+      }
+
+      .chart-tip {
+        left: 36%;
+      }
+
+      .best-item {
+        grid-template-columns: 24px 42px minmax(0, 1fr);
+      }
+
+      .best-item .price {
+        grid-column: 3;
+        justify-self: start;
+      }
+
+      .section-title {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .product-body h3 {
+        min-height: auto;
+      }
+
+      .orders-table {
+        min-width: 0;
+      }
+
+      .orders-table thead {
+        display: none;
+      }
+
+      .orders-table,
+      .orders-table tbody,
+      .orders-table tr,
+      .orders-table td {
+        display: block;
+        width: 100%;
+      }
+
+      .orders-table tr {
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .orders-table td {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 6px 0;
+        border-bottom: 0;
+        white-space: normal;
+        text-align: right;
+      }
+
+      .orders-table td::before {
+        content: attr(data-label);
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 800;
+        text-align: left;
+      }
+
+      .toolbar > div {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Điều hướng chính">
+      <a class="brand" href="#">
+        <span class="brand-mark"><i data-lucide="shopping-bag"></i></span>
+        <span><strong>POS365</strong><span>Quản lý bán hàng</span></span>
+      </a>
+
+      <ul class="nav-list">
+        <li><a class="nav-link is-active" href="#overview"><i data-lucide="home"></i>Tổng quan</a></li>
+        <li><a class="nav-link" href="#actions"><i data-lucide="shopping-cart"></i>Bán hàng</a></li>
+        <li><a class="nav-link" href="#orders"><i data-lucide="clipboard-list"></i>Đơn hàng</a></li>
+        <li><a class="nav-link" href="#products"><i data-lucide="box"></i>Sản phẩm</a></li>
+        <li><a class="nav-link" href="#orders"><i data-lucide="users"></i>Khách hàng</a></li>
+        <li><a class="nav-link" href="#inventory"><i data-lucide="truck"></i>Nhà cung cấp</a></li>
+        <li><a class="nav-link" href="#inventory"><i data-lucide="warehouse"></i>Kho hàng</a></li>
+        <li><a class="nav-link" href="#actions"><i data-lucide="circle-dollar-sign"></i>Thu chi</a></li>
+        <li><a class="nav-link" href="#orders"><i data-lucide="chart-column"></i>Báo cáo</a></li>
+        <li><a class="nav-link" href="#actions"><i data-lucide="badge-percent"></i>Khuyến mãi</a></li>
+        <li><a class="nav-link" href="#orders"><i data-lucide="user-round"></i>Nhân viên</a></li>
+        <li><a class="nav-link" href="#overview"><i data-lucide="settings"></i>Cài đặt</a></li>
+      </ul>
+
+      <div class="support-card" id="contact">
+        <span class="icon-box"><i data-lucide="phone-call"></i></span>
+        <div>
+          <small>Hỗ trợ bán hàng</small>
+          <strong>1900 1234</strong>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="page-title">
+          <button class="menu-button" type="button" aria-label="Mở menu" aria-expanded="false">
+            <i data-lucide="menu"></i>
+          </button>
+          <h1>Tổng quan</h1>
+        </div>
+
+        <div class="top-actions">
+          <button class="icon-button notification" type="button" aria-label="Thông báo"><i data-lucide="bell"></i></button>
+          <button class="icon-button" type="button" aria-label="Trợ giúp"><i data-lucide="circle-help"></i></button>
+          <div class="user-chip">
+            <span class="avatar"><i data-lucide="user"></i></span>
+            <span><strong>Admin</strong><small>Quản trị viên</small></span>
+            <i data-lucide="chevron-down"></i>
+          </div>
+        </div>
+      </header>
+
+      <div class="content">
+        <section class="toolbar reveal" id="overview" aria-label="Bộ lọc tổng quan">
+          <div>
+            <span class="date-pill"><i data-lucide="calendar-days"></i> Hôm nay</span>
+            <span class="date-pill"><i data-lucide="calendar-days"></i> 23/05/2024 - 23/05/2024 <i data-lucide="chevron-down"></i></span>
+          </div>
+        </section>
+
+        <section class="stats-grid reveal" aria-label="Chỉ số bán hàng">
+          <article class="stat-card">
+            <span class="icon-box"><i data-lucide="badge-dollar-sign"></i></span>
+            <div>
+              <p class="stat-label">Doanh thu hôm nay</p>
+              <p class="stat-value">12.560.000 đ</p>
+              <span class="trend"><i data-lucide="trending-up"></i> 18.5% so với hôm qua</span>
+            </div>
+          </article>
+          <article class="stat-card">
+            <span class="icon-box"><i data-lucide="shopping-cart"></i></span>
+            <div>
+              <p class="stat-label">Đơn hàng hôm nay</p>
+              <p class="stat-value">45</p>
+              <span class="trend"><i data-lucide="trending-up"></i> 12.2% so với hôm qua</span>
+            </div>
+          </article>
+          <article class="stat-card">
+            <span class="icon-box"><i data-lucide="package"></i></span>
+            <div>
+              <p class="stat-label">Sản phẩm bán chạy</p>
+              <p class="stat-value">128</p>
+              <span class="trend"><i data-lucide="trending-up"></i> 8.7% so với hôm qua</span>
+            </div>
+          </article>
+          <article class="stat-card">
+            <span class="icon-box"><i data-lucide="users-round"></i></span>
+            <div>
+              <p class="stat-label">Khách hàng mới</p>
+              <p class="stat-value">23</p>
+              <span class="trend"><i data-lucide="trending-up"></i> 21.1% so với hôm qua</span>
+            </div>
+          </article>
+          <article class="stat-card">
+            <span class="icon-box"><i data-lucide="circle-dollar-sign"></i></span>
+            <div>
+              <p class="stat-label">Lợi nhuận hôm nay</p>
+              <p class="stat-value">3.250.000 đ</p>
+              <span class="trend"><i data-lucide="trending-up"></i> 16.3% so với hôm qua</span>
+            </div>
+          </article>
+        </section>
+
+        <section class="dashboard-grid reveal" aria-label="Doanh thu và sản phẩm nổi bật">
+          <article class="panel">
+            <div class="panel-head">
+              <h2>Doanh thu</h2>
+              <div class="category-tabs" aria-label="Chọn chu kỳ biểu đồ">
+                <button class="tab is-active" type="button">Theo giờ</button>
+                <button class="tab" type="button">Theo ngày</button>
+                <button class="tab" type="button">Theo tháng</button>
+              </div>
+            </div>
+            <div class="chart" aria-label="Biểu đồ doanh thu trong ngày">
+              <span class="axis axis-y-1">15M</span>
+              <span class="axis axis-y-2">12M</span>
+              <span class="axis axis-y-3">9M</span>
+              <span class="axis axis-y-4">6M</span>
+              <span class="axis axis-y-5">3M</span>
+              <span class="axis axis-y-6">0</span>
+              <div class="axis axis-x"><span>00:00</span><span>04:00</span><span>08:00</span><span>12:00</span><span>16:00</span><span>20:00</span><span>24:00</span></div>
+              <svg viewBox="0 0 720 210" role="img" aria-label="Đường doanh thu tăng từ sáng đến tối">
+                <defs>
+                  <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#126bff" stop-opacity=".22"/>
+                    <stop offset="100%" stop-color="#126bff" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <path d="M0 196 L44 184 L88 170 L132 160 L176 145 L220 128 L264 114 L308 102 L352 90 L396 82 L440 72 L484 58 L528 38 L572 24 L616 22 L660 18 L720 17 L720 210 L0 210 Z" fill="url(#chartFill)"/>
+                <path d="M0 196 L44 184 L88 170 L132 160 L176 145 L220 128 L264 114 L308 102 L352 90 L396 82 L440 72 L484 58 L528 38 L572 24 L616 22 L660 18 L720 17" fill="none" stroke="#126bff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                <g fill="#fff" stroke="#126bff" stroke-width="3">
+                  <circle cx="0" cy="196" r="5"/><circle cx="88" cy="170" r="5"/><circle cx="176" cy="145" r="5"/><circle cx="264" cy="114" r="5"/><circle cx="352" cy="90" r="5"/><circle cx="440" cy="72" r="6"/><circle cx="528" cy="38" r="5"/><circle cx="616" cy="22" r="5"/><circle cx="720" cy="17" r="5"/>
+                </g>
+              </svg>
+              <div class="chart-tip">12:00<span>Doanh thu: 7.450.000 đ</span></div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-head">
+              <h2>Sản phẩm bán chạy</h2>
+              <a class="panel-link" href="#products">Xem tất cả</a>
+            </div>
+            <ol class="best-list">
+              <li class="best-item">
+                <span class="rank">1</span>
+                <img class="thumb" src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=160&q=80" alt="Laptop Dell Inspiron">
+                <div><div class="best-name">Laptop Dell Inspiron 15 3520</div><div class="best-meta">Đã bán: 15</div></div>
+                <span class="price">225.000.000 đ</span>
+              </li>
+              <li class="best-item">
+                <span class="rank">2</span>
+                <img class="thumb" src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=160&q=80" alt="Laptop ASUS VivoBook">
+                <div><div class="best-name">Laptop ASUS VivoBook 15</div><div class="best-meta">Đã bán: 12</div></div>
+                <span class="price">15.490.000 đ</span>
+              </li>
+              <li class="best-item">
+                <span class="rank">3</span>
+                <img class="thumb" src="https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=160&q=80" alt="Chuột không dây Logitech">
+                <div><div class="best-name">Chuột không dây Logitech M331</div><div class="best-meta">Đã bán: 10</div></div>
+                <span class="price">350.000 đ</span>
+              </li>
+              <li class="best-item">
+                <span class="rank">4</span>
+                <img class="thumb" src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=160&q=80" alt="Bàn phím cơ DareU">
+                <div><div class="best-name">Bàn phím cơ DareU EK87</div><div class="best-meta">Đã bán: 8</div></div>
+                <span class="price">950.000 đ</span>
+              </li>
+              <li class="best-item">
+                <span class="rank">5</span>
+                <img class="thumb" src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=160&q=80" alt="Màn hình LG 24MP400-B">
+                <div><div class="best-name">Màn hình LG 24MP400-B 24 inch</div><div class="best-meta">Đã bán: 7</div></div>
+                <span class="price">2.390.000 đ</span>
+              </li>
+            </ol>
+          </article>
+        </section>
+
+        <section class="two-col reveal" aria-label="Đơn hàng và tồn kho">
+          <article class="panel" id="orders">
+            <div class="panel-head">
+              <h2>Đơn hàng mới nhất</h2>
+              <a class="panel-link" href="#orders">Xem tất cả</a>
+            </div>
+            <div class="orders-wrap">
+              <table class="orders-table">
+                <thead>
+                  <tr><th>Mã đơn hàng</th><th>Khách hàng</th><th>Tổng tiền</th><th>Trạng thái</th><th>Thời gian</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td class="order-code" data-label="Mã đơn">DH10045</td><td data-label="Khách hàng">Nguyễn Văn A</td><td data-label="Tổng tiền">15.490.000 đ</td><td data-label="Trạng thái"><span class="status paid">Đã thanh toán</span></td><td data-label="Thời gian">23/05/2024 14:30</td></tr>
+                  <tr><td class="order-code" data-label="Mã đơn">DH10044</td><td data-label="Khách hàng">Trần Thị B</td><td data-label="Tổng tiền">2.390.000 đ</td><td data-label="Trạng thái"><span class="status processing">Đang xử lý</span></td><td data-label="Thời gian">23/05/2024 14:15</td></tr>
+                  <tr><td class="order-code" data-label="Mã đơn">DH10043</td><td data-label="Khách hàng">Lê Văn C</td><td data-label="Tổng tiền">950.000 đ</td><td data-label="Trạng thái"><span class="status pending">Chờ thanh toán</span></td><td data-label="Thời gian">23/05/2024 13:50</td></tr>
+                  <tr><td class="order-code" data-label="Mã đơn">DH10042</td><td data-label="Khách hàng">Phạm Thị D</td><td data-label="Tổng tiền">350.000 đ</td><td data-label="Trạng thái"><span class="status cancelled">Đã hủy</span></td><td data-label="Thời gian">23/05/2024 13:20</td></tr>
+                  <tr><td class="order-code" data-label="Mã đơn">DH10041</td><td data-label="Khách hàng">Hoàng Văn E</td><td data-label="Tổng tiền">25.880.000 đ</td><td data-label="Trạng thái"><span class="status paid">Đã thanh toán</span></td><td data-label="Thời gian">23/05/2024 12:45</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="panel" id="inventory">
+            <div class="panel-head">
+              <h2>Tình trạng kho</h2>
+              <a class="panel-link" href="#inventory">Xem tất cả</a>
+            </div>
+            <div class="inventory-list">
+              <div class="inventory-item">
+                <span class="inventory-icon"><i data-lucide="laptop"></i></span>
+                <div><div class="best-name">Laptop</div><div class="inventory-meta">120 sản phẩm</div><div class="bar"><span style="width: 60%"></span></div></div>
+                <strong>60%</strong>
+              </div>
+              <div class="inventory-item">
+                <span class="inventory-icon"><i data-lucide="cpu"></i></span>
+                <div><div class="best-name">Linh kiện máy tính</div><div class="inventory-meta">320 sản phẩm</div><div class="bar"><span style="width: 75%"></span></div></div>
+                <strong>75%</strong>
+              </div>
+              <div class="inventory-item">
+                <span class="inventory-icon"><i data-lucide="mouse"></i></span>
+                <div><div class="best-name">Phụ kiện</div><div class="inventory-meta">260 sản phẩm</div><div class="bar"><span style="width: 52%"></span></div></div>
+                <strong>52%</strong>
+              </div>
+              <div class="inventory-item">
+                <span class="inventory-icon"><i data-lucide="printer"></i></span>
+                <div><div class="best-name">Thiết bị văn phòng</div><div class="inventory-meta">150 sản phẩm</div><div class="bar"><span style="width: 35%"></span></div></div>
+                <strong>35%</strong>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="quick-grid reveal" id="actions" aria-label="Thao tác nhanh">
+          <button class="quick-action" type="button"><span class="icon-box"><i data-lucide="shopping-cart"></i></span><span><strong>Bán hàng</strong><span>Tạo đơn hàng mới</span></span></button>
+          <button class="quick-action" type="button"><span class="icon-box"><i data-lucide="circle-plus"></i></span><span><strong>Thêm sản phẩm</strong><span>Thêm sản phẩm mới</span></span></button>
+          <button class="quick-action" type="button"><span class="icon-box"><i data-lucide="archive-restore"></i></span><span><strong>Nhập hàng</strong><span>Nhập hàng vào kho</span></span></button>
+          <button class="quick-action" type="button"><span class="icon-box"><i data-lucide="chart-column"></i></span><span><strong>Báo cáo</strong><span>Xem báo cáo chi tiết</span></span></button>
+          <button class="quick-action" type="button"><span class="icon-box"><i data-lucide="wallet"></i></span><span><strong>Thu chi</strong><span>Quản lý thu chi</span></span></button>
+        </section>
+
+        <section class="section-title reveal" id="products">
+          <div>
+            <h2>Danh mục sản phẩm</h2>
+            <p>Giới thiệu nhanh các dòng máy tính và phụ kiện đang kinh doanh.</p>
+          </div>
+          <div class="category-tabs" aria-label="Lọc danh mục sản phẩm">
+            <button class="tab is-active" type="button"><i data-lucide="sparkles"></i>Tất cả</button>
+            <button class="tab" type="button"><i data-lucide="laptop"></i>Laptop</button>
+            <button class="tab" type="button"><i data-lucide="cpu"></i>Linh kiện</button>
+            <button class="tab" type="button"><i data-lucide="keyboard"></i>Phụ kiện</button>
+          </div>
+        </section>
+
+        <section class="products-grid reveal" aria-label="Sản phẩm nổi bật">
+          <article class="product-card">
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=760&q=80" alt="Laptop Dell Inspiron 15">
+              <span class="badge">Bán chạy</span>
+            </div>
+            <div class="product-body">
+              <div><h3>Dell Inspiron 15 3520</h3><div class="product-meta">Laptop văn phòng hiệu năng ổn định</div></div>
+              <div class="specs"><span>i5 Gen 12</span><span>16GB RAM</span><span>512GB SSD</span></div>
+              <div class="product-foot"><span class="price">22.500.000 đ</span><button class="buy-button" type="button"><i data-lucide="shopping-cart"></i>Mua</button></div>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=760&q=80" alt="Laptop ASUS VivoBook">
+              <span class="badge">Khuyến mãi</span>
+            </div>
+            <div class="product-body">
+              <div><h3>ASUS VivoBook 15 X1504VA</h3><div class="product-meta">Mỏng nhẹ cho học tập và làm việc</div></div>
+              <div class="specs"><span>i5-1335U</span><span>OLED</span><span>1.7kg</span></div>
+              <div class="product-foot"><span class="price">15.490.000 đ</span><button class="buy-button" type="button"><i data-lucide="shopping-cart"></i>Mua</button></div>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=760&q=80" alt="PC gaming RGB">
+              <span class="badge">Gaming</span>
+            </div>
+            <div class="product-body">
+              <div><h3>PC Gaming M2T RTX 4060</h3><div class="product-meta">Bộ máy chơi game, thiết kế đồ họa</div></div>
+              <div class="specs"><span>RTX 4060</span><span>32GB RAM</span><span>1TB SSD</span></div>
+              <div class="product-foot"><span class="price">25.880.000 đ</span><button class="buy-button" type="button"><i data-lucide="shopping-cart"></i>Mua</button></div>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=760&q=80" alt="Màn hình LG 24 inch">
+              <span class="badge">Còn hàng</span>
+            </div>
+            <div class="product-body">
+              <div><h3>Màn hình LG 24MP400-B</h3><div class="product-meta">Màn hình IPS 24 inch cho văn phòng</div></div>
+              <div class="specs"><span>24 inch</span><span>75Hz</span><span>IPS</span></div>
+              <div class="product-foot"><span class="price">2.390.000 đ</span><button class="buy-button" type="button"><i data-lucide="shopping-cart"></i>Mua</button></div>
+            </div>
+          </article>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      if (window.lucide) {
+        window.lucide.createIcons({ attrs: { width: 21, height: 21, strokeWidth: 2.2 } });
+      }
+
+      const menuButton = document.querySelector(".menu-button");
+      const navLinks = document.querySelectorAll(".nav-link");
+
+      menuButton?.addEventListener("click", () => {
+        const isOpen = document.body.classList.toggle("nav-open");
+        menuButton.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          document.body.classList.remove("nav-open");
+          menuButton?.setAttribute("aria-expanded", "false");
+        });
+      });
+
+      document.addEventListener("click", (event) => {
+        if (document.body.classList.contains("nav-open") && event.target === document.body) {
+          document.body.classList.remove("nav-open");
+          menuButton?.setAttribute("aria-expanded", "false");
+        }
+      });
+
+      const revealItems = document.querySelectorAll(".reveal");
+      if (!("IntersectionObserver" in window)) {
+        revealItems.forEach((item) => item.classList.add("is-visible"));
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: "0px 0px -40px" });
+
+      revealItems.forEach((item) => observer.observe(item));
+    });
+  </script>
+</body>
+</html>

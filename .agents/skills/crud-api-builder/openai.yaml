@@ -1,0 +1,6 @@
+interface:
+  display_name: "CRUD API Builder"
+  short_description: "Build complete REST CRUD APIs with validation, migrations, tests, and docs."
+  default_prompt: "Use $crud-api-builder to implement a complete CRUD REST API for the requested resource while following this repository's existing architecture."
+policy:
+  allow_implicit_invocation: true
